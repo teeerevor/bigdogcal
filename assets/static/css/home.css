@@ -1,0 +1,121 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --text: #575757;
+  --muted: #6b7280;
+  --border: #e2e4e9;
+  --accent: #4f6df5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem 1.5rem;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.55rem;
+}
+
+@media (min-width: 300px) {
+  .calendar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 400px) {
+  .calendar {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 800px) {
+  .calendar {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1350px) {
+  .calendar {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+
+.month h3 {
+  margin: 0.25rem;
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.day {
+  display: flex;
+  padding: 0.5rem 0rem;
+  padding-left: 0.5rem;
+  font-size: 0.7rem;
+  color: var(--text);
+  border-bottom: solid 1px color-mix(in srgb, var(--text) 40%, transparent);
+}
+
+.day .number {
+  width: 10px;
+}
+
+.day .letter {
+  padding-left: 0.5rem;
+  opacity: 0.3;
+  width: 5px;
+}
+
+.day .label {
+  text-align: center;
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 0.5rem;
+}
+
+.day.event-color {
+  background-color: rgb(from var(--event-color) r g b / 0.1);
+}
+
+.day.today {
+  background-color: rgb(236, 72, 153, 0.08);
+}
+
+.day.past {
+  opacity: 0.5;
+}
+
+/*@media (pVttrefers-color-scheme: dark) {
+  :root {
+    --bg: #17181c;
+    --surface: #212227;
+    --text: #f1f2f4;
+    --muted: #9aa0aa;
+    --border: #33353c;
+  }
+}*/

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/static/css/home.css" />
+    <title>BIGDOGCAL - {{ year }}</title>
+  </head>
+  <body>
+    <h1>BigDogCal {{ year }}</h1>
+    <div class="calendar">
+      {% for m in months %}
+      <div class="month">
+        <h3>{{ m.name }}</h3>
+        <div class="days">
+          {% for day in m.days %}
+          <div
+            class="day {% if day.color %} event-color {% endif %} {% if day.is_today %} today {% endif %} {% if day.is_past %} past {% endif %}"
+            {% if day.color %}
+            style="--event-color: {{ day.color }};"
+            {% endif %}
+          >
+            <span class="number">{{ day.day }}</span>
+            <span class="letter">{{ day.weekday }}</span>
+            <span class="label">{{ day.label }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
