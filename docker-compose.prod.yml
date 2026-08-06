@@ -7,8 +7,6 @@ services:
       POSTGRES_USER: ${DB_USER:-postgres}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: ${DB_NAME:-bigdogcal}
-    ports:
-      - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,11 +21,10 @@ services:
       dockerfile: Dockerfile
     container_name: bigdogcal-app
     restart: unless-stopped
-    env_file:
-      - .env
     environment:
       LOCO_ENV: production
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-bigdogcal}
+      ICS_CALENDAR_URL: ${ICS_CALENDAR_URL}
     ports:
       - "${APP_PORT:-5150}:5150"
     depends_on:
