@@ -11,6 +11,34 @@ services:
       - "${DB_PORT:-5432}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-bigdogcal}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: bigdogcal-app-dev
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      LOCO_ENV: development
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-bigdogcal}
+    ports:
+      - "${APP_PORT:-5150}:5150"
+    volumes:
+      - .:/app
+      - cargo_registry:/usr/local/cargo/registry
+      - app_target:/app/target
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres_data:
+  cargo_registry:
+  app_target:

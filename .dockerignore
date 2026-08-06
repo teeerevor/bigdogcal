@@ -1,0 +1,10 @@
+target/
+.git/
+.github/
+.env
+.env-sample
+*.sqlite
+*.sqlite-*
+tests/
+examples/
+.claude/

@@ -1,0 +1,16 @@
+# syntax=docker/dockerfile:1
+# Development image: compiles on container start and watches for changes.
+# Source, cargo registry, and build artifacts are mounted as volumes by
+# docker-compose.yml so incremental builds survive container restarts.
+
+FROM rust:1-bookworm
+
+RUN cargo install cargo-watch --locked
+
+WORKDIR /app
+
+ENV LOCO_ENV=development
+
+EXPOSE 5150
+
+CMD ["cargo", "watch", "-x", "loco start"]
